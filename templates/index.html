@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Grade Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f7ff; min-height: 100vh; display: flex; flex-direction: column; }
+
+        /* Header */
+        header { background: #1a8fe3; color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        header h1 { font-size: 22px; letter-spacing: 0.5px; }
+        nav a { color: white; text-decoration: none; margin-left: 24px; font-size: 15px; opacity: 0.9; }
+        nav a:hover { opacity: 1; text-decoration: underline; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 60px 20px 30px; }
+        .hero h2 { font-size: 32px; color: #1a8fe3; margin-bottom: 12px; }
+        .hero p { font-size: 16px; color: #555; max-width: 520px; margin: 0 auto; line-height: 1.6; }
+
+        /* Cards */
+        .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 40px 80px; flex: 1; }
+        .card { background: white; border-radius: 12px; padding: 20px 28px; text-align: center; box-shadow: 0 4px 16px rgba(26,143,227,0.12); border-top: 4px solid #1a8fe3; transition: transform 0.25s, box-shadow 0.25s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 16px 36px rgba(26,143,227,0.22); }
+        .card .icon { font-size: 28px; color: #1a8fe3; margin-bottom: 10px; }
+        .card h3 { color: #1a8fe3; margin-bottom: 6px; font-size: 16px; }
+        .card p { color: #666; font-size: 14px; line-height: 1.5; }
+
+        /* CTA Button */
+        .cta { text-align: center; padding: 10px 0 40px; }
+        .cta-btn { background: #1a8fe3; color: white; border: none; padding: 14px 40px; font-size: 16px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 14px rgba(26,143,227,0.35); transition: background 0.2s, transform 0.2s; }
+        .cta-btn:hover { background: #1278c2; transform: translateY(-2px); }
+
+        /* Footer */
+        footer { background: #1a8fe3; color: white; text-align: center; padding: 16px; font-size: 13px; opacity: 0.95; }
+
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 200; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 14px; padding: 36px; width: 100%; max-width: 440px; box-shadow: 0 8px 32px rgba(0,0,0,0.18); position: relative; animation: slideUp 0.25s ease; }
+        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .modal h2 { color: #1a8fe3; margin-bottom: 20px; font-size: 20px; }
+        .modal label { display: block; margin-top: 14px; margin-bottom: 4px; color: #555; font-size: 14px; }
+        .modal input { width: 100%; padding: 11px 12px; border: 1px solid #b3d7f5; border-radius: 6px; font-size: 15px; outline: none; transition: border 0.2s; }
+        .modal input:focus { border-color: #1a8fe3; }
+        .modal button[type="submit"] { background: #1a8fe3; color: white; width: 100%; padding: 13px; border: none; border-radius: 6px; font-size: 16px; cursor: pointer; margin-top: 24px; transition: background 0.2s; }
+        .modal button[type="submit"]:hover { background: #1278c2; }
+        .close-btn { position: absolute; top: 14px; right: 18px; background: none; border: none; font-size: 22px; cursor: pointer; color: #aaa; }
+        .close-btn:hover { color: #333; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-graduation-cap"></i> GradeCalc</h1>
+        <nav>
+            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/history"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h2>Student Grade Calculator</h2>
+        <p>Quickly calculate student grades based on their scores, track results over time, and get instant feedback on academic performance.</p>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-pen-to-square"></i></div>
+            <h3>Enter Scores</h3>
+            <p>Input up to 3 scores per student and get an instant average and letter grade.</p>
+        </div>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-chart-bar"></i></div>
+            <h3>Track Performance</h3>
+            <p>All submissions are saved so you can review and compare student results anytime.</p>
+        </div>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+            <h3>Instant Results</h3>
+            <p>Get a clear grade breakdown immediately after submitting student scores.</p>
+        </div>
+        <div class="card">
+            <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
+            <h3>Grade History</h3>
+            <p>Browse the full history of all graded students with timestamps and scores.</p>
+        </div>
+    </div>
+
+    <div class="cta">
+        <button class="cta-btn" onclick="openModal()"><i class="fa-solid fa-calculator"></i> Calculate Grade</button>
+    </div>
+
+    <footer>
+        &copy; 2026 GradeCalc &mdash; Student Grade Management
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeOnOverlay(event)">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h2><i class="fa-solid fa-pen-to-square"></i> Calculate Grade</h2>
+            <form action="/result" method="POST">
+                <label>Student Name</label>
+                <input type="text" name="name" placeholder="e.g. John Doe" required>
+                <label>Score 1 (0–100)</label>
+                <input type="number" name="score1" min="0" max="100" step="0.1" required>
+                <label>Score 2 (0–100)</label>
+                <input type="number" name="score2" min="0" max="100" step="0.1" required>
+                <label>Score 3 (0–100)</label>
+                <input type="number" name="score3" min="0" max="100" step="0.1" required>
+                <button type="submit">Calculate Grade</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById("modalOverlay").classList.add("active"); }
+        function closeModal() { document.getElementById("modalOverlay").classList.remove("active"); }
+        function closeOnOverlay(e) { if (e.target.id === "modalOverlay") closeModal(); }
+    </script>
+
+</body>
+</html>

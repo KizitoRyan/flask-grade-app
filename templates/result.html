@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grade Result</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: Arial, sans-serif; background: #f0f7ff; min-height: 100vh; display: flex; flex-direction: column; }
+
+        header { background: #1a8fe3; color: white; padding: 16px 40px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+        header h1 { font-size: 22px; }
+        nav a { color: white; text-decoration: none; margin-left: 24px; font-size: 15px; opacity: 0.9; }
+        nav a:hover { opacity: 1; text-decoration: underline; }
+
+        .content { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+        .card { background: white; border-radius: 14px; padding: 40px 36px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 4px 20px rgba(26,143,227,0.15); border-top: 5px solid #1a8fe3; }
+        .card h2 { color: #1a8fe3; font-size: 26px; margin-bottom: 20px; }
+        .scores { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; }
+        .score-box { background: #f0f7ff; border-radius: 8px; padding: 10px 16px; font-size: 14px; color: #555; }
+        .score-box span { display: block; font-size: 20px; font-weight: bold; color: #1a8fe3; }
+        .divider { border: none; border-top: 1px solid #e0eef8; margin: 20px 0; }
+        .avg { font-size: 16px; color: #555; margin-bottom: 10px; }
+        .avg strong { color: #1a8fe3; }
+        .grade { font-size: 80px; font-weight: bold; color: #1a8fe3; line-height: 1; margin: 10px 0 24px; }
+        .grade-label { font-size: 14px; color: #888; margin-bottom: 28px; }
+        .actions { display: flex; gap: 12px; justify-content: center; }
+        .btn { padding: 11px 22px; border-radius: 6px; text-decoration: none; font-size: 14px; border: none; cursor: pointer; }
+        .btn-primary { background: #1a8fe3; color: white; }
+        .btn-primary:hover { background: #1278c2; }
+        .btn-outline { background: white; color: #1a8fe3; border: 1.5px solid #1a8fe3; }
+        .btn-outline:hover { background: #f0f7ff; }
+
+        footer { background: #1a8fe3; color: white; text-align: center; padding: 16px; font-size: 13px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-graduation-cap"></i> GradeCalc</h1>
+        <nav>
+            <a href="/"><i class="fa-solid fa-house"></i> Home</a>
+            <a href="/history"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <div class="card">
+            <h2>{{ name }}</h2>
+            <div class="scores">
+                <div class="score-box">Score 1<span>{{ score1 }}</span></div>
+                <div class="score-box">Score 2<span>{{ score2 }}</span></div>
+                <div class="score-box">Score 3<span>{{ score3 }}</span></div>
+            </div>
+            <hr class="divider">
+            <p class="avg">Average Score: <strong>{{ avg }}</strong></p>
+            <div class="grade">{{ grade }}</div>
+            <p class="grade-label">Final Letter Grade</p>
+            <div class="actions">
+                <a href="/" class="btn btn-outline"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+                <a href="/history" class="btn btn-primary"><i class="fa-solid fa-clock-rotate-left"></i> View History</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 GradeCalc &mdash; Student Grade Management
+    </footer>
+
+</body>
+</html>
