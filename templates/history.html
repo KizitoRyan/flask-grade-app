@@ -11,8 +11,9 @@
         header h1 { font-size: 22px; }
         nav a { color: white; text-decoration: none; margin-left: 24px; font-size: 15px; opacity: 0.9; }
         nav a:hover { opacity: 1; text-decoration: underline; }
+        .user-info { font-size: 14px; opacity: 0.85; margin-left: 24px; }
 
-        .content { flex: 1; padding: 40px; max-width: 900px; margin: 0 auto; width: 100%; }
+        .content { flex: 1; padding: 40px; max-width: 1100px; margin: 0 auto; width: 100%; }
         .content h2 { color: #1a8fe3; margin-bottom: 24px; font-size: 24px; }
 
         .empty { text-align: center; color: #888; padding: 60px 20px; font-size: 16px; }
@@ -20,7 +21,7 @@
         table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(26,143,227,0.1); }
         thead { background: #1a8fe3; color: white; }
         th { padding: 14px 16px; text-align: left; font-size: 14px; font-weight: 600; }
-        td { padding: 13px 16px; font-size: 14px; color: #444; border-bottom: 1px solid #e8f3fc; }
+        td { padding: 13px 16px; font-size: 14px; color: #444; border-bottom: 1px solid #e8f3fc; white-space: nowrap; }
         tr:last-child td { border-bottom: none; }
         tr:hover td { background: #f5faff; }
 
@@ -41,6 +42,8 @@
         <nav>
             <a href="/"><i class="fa-solid fa-house"></i> Home</a>
             <a href="/history"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+            <span class="user-info"><i class="fa-solid fa-circle-user"></i> {{ current_user.full_name }}</span>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
         </nav>
     </header>
 
@@ -71,7 +74,7 @@
                     <td>{{ r.score3 }}</td>
                     <td><strong>{{ r.average }}</strong></td>
                     <td><span class="grade-badge grade-{{ r.grade }}">{{ r.grade }}</span></td>
-                    <td>{{ r.created_at.strftime("%d %b %Y, %H:%M") }}</td>
+                    <td data-utc="{{ r.created_at.strftime('%Y-%m-%dT%H:%M:%S') }}Z">{{ r.created_at.strftime("%d %b %Y, %H:%M") }} UTC</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -85,5 +88,15 @@
         &copy; 2026 GradeCalc &mdash; Student Grade Management
     </footer>
 
+    <script>
+        document.querySelectorAll('td[data-utc]').forEach(td => {
+            const date = new Date(td.dataset.utc);
+            const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            td.textContent = date.toLocaleString('en-GB', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+            });
+        });
+    </script>
 </body>
 </html>

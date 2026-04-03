@@ -12,6 +12,7 @@
         header h1 { font-size: 22px; letter-spacing: 0.5px; }
         nav a { color: white; text-decoration: none; margin-left: 24px; font-size: 15px; opacity: 0.9; }
         nav a:hover { opacity: 1; text-decoration: underline; }
+        .user-info { font-size: 14px; opacity: 0.85; }
 
         /* Hero */
         .hero { text-align: center; padding: 60px 20px 30px; }
@@ -56,6 +57,8 @@
         <nav>
             <a href="/"><i class="fa-solid fa-house"></i> Home</a>
             <a href="/history"><i class="fa-solid fa-clock-rotate-left"></i> History</a>
+            <span class="user-info"><i class="fa-solid fa-circle-user"></i> {{ current_user.full_name }}</span>
+            <a href="/logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
         </nav>
     </header>
 
